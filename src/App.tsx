@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import useHackerNews from "./hooks/useHackerNews";
+import "./index.css";
+import Header from "./components/header";
+import styled from "@emotion/styled";
+import Footer from "./components/footer";
+import NewsList from "./components/news";
 
-function App() {
+const App = () => {
+  const { news, loading } = useHackerNews();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrap>
+      <Header />
+      {loading && <h2>data loading..</h2>}
+      {!loading && news && <NewsList news={news} />}
+      <Footer />
+    </Wrap>
   );
-}
+};
 
 export default App;
+const Wrap = styled.div``;
